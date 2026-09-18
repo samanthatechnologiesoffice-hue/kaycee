@@ -1,7 +1,7 @@
 # Kaycee Industries — homepage redesign
 
 Single-page marketing homepage for Kaycee Industries Ltd (Mumbai), built from
-`KAYCEE_MASTER_PROMPT.md` (v2.1) with the client-supplied assets.
+`KAYCEE_MASTER_PROMPT.md` (v3, "Control Panel" design system) with the client-supplied assets.
 
 ## Files
 
@@ -9,10 +9,10 @@ Single-page marketing homepage for Kaycee Industries Ltd (Mumbai), built from
 |---|---|
 | `index.html` | The whole page: nav, hero, about, products (+ `#downloads`), why choose us, clients, business network, testimonials, contact, footer |
 | `assets/css/style.css` | Design system (primary `#0997E0`), layouts, responsive rules, reduced-motion fallbacks |
-| `assets/js/main.js` | GSAP + ScrollTrigger + Lenis motion, nav, product tabs, pinned "why" track, spotlight logo wall, map/rail linking, card-stack testimonials, form validation |
-| `assets/fonts/` | Self-hosted Bricolage Grotesque, Manrope, Geist Mono (latin + latin-ext) |
+| `assets/js/main.js` | GSAP + ScrollTrigger reveals, nav, product tabs, map–table linking, form validation |
+| `assets/fonts/` | Self-hosted Barlow Condensed, Barlow, DM Mono (latin + latin-ext) |
 | `assets/img/` | The 19 client-supplied images (logo, hero, range, factory, 3 products, 8 client logos, favicon) |
-| `assets/vendor/` | gsap 3.15, ScrollTrigger, lenis 1.3 |
+| `assets/vendor/` | gsap 3.15, ScrollTrigger |
 | `KAYCEE_MASTER_PROMPT.md` | The brief the site was built from |
 
 ## Run locally
