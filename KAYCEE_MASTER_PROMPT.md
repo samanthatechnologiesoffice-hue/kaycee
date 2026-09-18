@@ -1,4 +1,4 @@
-# KAYCEE INDUSTRIES LTD — MASTER PROMPT (v2)
+# KAYCEE INDUSTRIES LTD — MASTER PROMPT (v2.1)
 ## Single-page homepage, fresh modern design, primary colour #0997E0, client-supplied assets only
 
 > **How to use:** Copy everything between `=== PROMPT START ===` and `=== PROMPT END ===` into Claude / Cursor / Lovable / v0 / Bolt / any AI builder. Put the `assets/img/` folder (19 files, listed in §5) next to the generated `index.html`. Nothing else needs to be supplied.
@@ -143,7 +143,7 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
 
 **Motion:** cards enter with a 3D tilt-in (rotateX 10° → 0, translateY 40 px → 0, 90 ms stagger). Hover: product image scales 1.06 and lifts 6 px with a soft primary-tinted shadow; the tile background brightens; the arrow icon nudges. Tab click animates the indicator with a spring and re-orders cards with a FLIP transition (400 ms). On mobile the three cards become a horizontal snap carousel with a thin primary progress bar and `01 / 03` counter.
 
-## 4.4 `#why` — WHY CHOOSE US
+## 4.4 `#why` — WHY CHOOSE US  (new layout: pinned horizontal scroll)
 
 **Copy (verbatim):**
 - Label `03 Why Choose Us`
@@ -151,16 +151,22 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
 - Intro: "Built around your needs, we deliver dependable products with consistent quality, precise engineering, and lasting performance."
 - Big stat: **`89 %`** — "Growth in the past 2 years"
 - Value chips: `Reliable Products` · `Technical Expertise` · `Competitive Value`
-- Cards:
+- Panels:
   1. `01` **Experienced Team** — "Our team brings extensive industrial and technical product experience from diverse backgrounds, enabling us to understand customer requirements and deliver practical solutions."
   2. `02` **Wide Range of Products** — "We offer a broad range of industrial and technical products, giving our clients more options and making it easier to find the right solution for their requirements."
   3. `03` **Competitive Pricing** — "We provide reliable, high quality products at fair and competitive prices, helping our clients achieve greater value without compromising on reliability."
 
-**Layout:** Light section. Left sticky column (4 cols): label, H2, intro, then the `89 %` rendered huge (display font, 160 px, primary colour) with a thin **circular progress ring** that fills to 89% on scroll, and the three value chips. Right column (8 cols): the three cards as **horizontal ledger rows** (not boxes): mono number, title, paragraph, with hairline dividers; each row has a thin primary bar on the left that grows on hover. Rows are wide, generous, editorial.
+**Layout:** White section, **pinned horizontal-scroll stage** (desktop). The section pins for ~250 vh; as the user scrolls, a track slides left through four full-viewport-width panels:
+- Panel 0 (intro): label + H2 + intro + the three value chips, set flush-left with a huge outlined `89` glyph (display font, 40 vh tall, 1 px primary outline) sitting behind the text; the caption `% Growth in the past 2 years` runs vertically along the glyph's right edge in mono.
+- Panels 1–3: each is a full-width "spread" with a giant mono index `01` / `02` / `03` at 28 vh height in `--primary-050`, the title in display type at `clamp(40px,5vw,72px)`, and the paragraph in a 44-ch measure placed bottom-right. Each panel gets a different vertical anchor for its text (top-left, centre-left, bottom-right) so the spreads feel composed, not repeated.
+- A fixed bottom bar during the pin: a thin primary progress line and the current index `01 — 04`; a `Drag` cursor label appears on hover (the track is also draggable).
+- The `89 %` numeral fills from outline to solid primary (`clip-path` reveal) as panel 0 scrolls out.
 
-**Motion:** ring draws (`stroke-dashoffset`, 1.6 s) and the number counts to 89; rows reveal with a left-to-right hairline draw then text fade; hover bar grows 2 px → 6 px.
+**Mobile / reduced motion:** no pinning — the four panels stack vertically as tall cards separated by hairlines, the `89` glyph sits behind the intro at 24 vh, the chips wrap.
 
-## 4.5 `#clients` — OUR CLIENTS
+**Motion:** ScrollTrigger pin + `scrub: 0.8`; panel text parallaxes 0.85× against the track; giant indices parallax 1.15×; progress line scrubs; chips fade-up on entry.
+
+## 4.5 `#clients` — OUR CLIENTS  (new layout: spotlight logo wall, no marquee)
 
 **Copy (verbatim):**
 - Label `04 Our Clients`
@@ -179,11 +185,13 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
 | `assets/img/clients/cs-electric.webp` (254×200) | C&S Electric logo |
 | `assets/img/clients/birla-gold.webp` (215×200) | Birla Gold Premium Cement logo |
 
-**Layout:** Light section. Header left. Logos in a **two-row infinite marquee**, rows moving in opposite directions, each logo inside a 180×96 white tile with hairline border; logos rendered `grayscale(1) opacity(.7)` and turning full-colour on hover. Below the marquee a single line in mono: `TRUSTED BY POWER · RAILWAYS · RESEARCH · INFRASTRUCTURE · ELECTRICAL OEMs`.
+**Layout:** `--paper` section. **No marquee, no logo strip.** The H2 is set very large (`clamp(40px,6vw,88px)`, two lines) and left-aligned; the intro sits to its right as a narrow 36-ch column. Below, a **staggered 4×2 logo wall** where the tiles are *not* uniform: tile heights alternate (160 px / 200 px) and the second row is offset by half a tile, giving a brick/masonry rhythm. Each tile is white, 20 px radius, hairline border, with the logo centred at 60% width, rendered in grayscale at 55% opacity. A **cursor spotlight** (radial 320 px, `--primary-050` → transparent) follows the mouse across the wall and lifts the colour and opacity of whatever tile it passes over; the hovered tile also shows a mono caption at its bottom-left (e.g. `INDIAN RAILWAYS`), taken from the alt text without the word "logo".
 
-**Motion:** marquee 40 px/s, pause on hover, `will-change: transform`; reduced motion → static wrapped grid of the 8 tiles.
+Beneath the wall: a single hairline, then a full-width **statement line** in display type at 28 px: "Thousands of Companies are going with Kaycee Industries Ltd" with "Understand, Track and Grow their Market Share" set in primary on a second line — this is the intro sentence re-typeset as the section's closing beat (do not duplicate it above; use the intro either as the side column *or* as this statement line, not both — choose the statement line).
 
-## 4.6 `#network` — BUSINESS NETWORK
+**Motion:** tiles rise into place with a 3D flip (rotateY 24° → 0) in a diagonal stagger from top-left; spotlight follows the cursor with 120 ms lag; on touch devices the spotlight is replaced by a slow automatic sweep across the wall (12 s loop) that colours tiles as it passes. Reduced motion → tiles in full colour, static.
+
+## 4.6 `#network` — BUSINESS NETWORK  (new layout: full-bleed map backdrop + branch rail)
 
 **Copy (verbatim):**
 - Label `05 Business Network`
@@ -191,7 +199,7 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
 - Stat tiles: `1 Head Office` · `10 Branch Offices` · `109 Stock Points` · `2 Factories`
 - Map title: **"Our Presence Across India"** · HO coordinate tag `18.94°N · 72.84°E`
 - Legend: `Head Office` · `Branch Office` · `Distribution Network`
-- Head Office card: **Mumbai (HO)** — Office `+91 22 22613521/22/23` (`tel:+912222613521`) · Mobile `9320664888` (`tel:+919320664888`) · Call & WhatsApp `7498899970` (`https://wa.me/917498899970`)
+- Head Office: **Mumbai (HO)** — Office `+91 22 22613521/22/23` (`tel:+912222613521`) · Mobile `9320664888` (`tel:+919320664888`) · Call & WhatsApp `7498899970` (`https://wa.me/917498899970`)
 - Branch Offices ("Call us directly") — render all 10:
   | # | City | State | Phone |
   |---|---|---|---|
@@ -205,13 +213,20 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
   | 08 | Pune / Nashik | Maharashtra | +91 83695 89081 |
   | 09 | Gujarat | Gujarat | +91 99251 59373 |
   | 10 | Mumbai | Maharashtra | +91 93248 03914 |
-  Link: `View all 10 branch offices` (expands the list on mobile; shows 5 then reveals all).
+  Link: `View all 10 branch offices`.
 
-**Layout:** Dark section (`--ink`). Left 7 cols: an **inline SVG map of India** drawn in 1 px lines at 22% white (all states/UTs as paths; the previous draft's state list — Andaman and Nicobar Islands through West Bengal — is the full set), with pins: HO Mumbai as a primary-colour pin with a pulse ring, 9 branch cities as smaller white pins (Bangalore, Kolkata, Delhi, Punjab, Rajasthan, Chennai, Indore, Pune/Nashik, Gujarat) and Maharashtra tinted at 12% primary to signal both factories. Thin dashed arcs from Mumbai to each branch. Hovering a pin highlights the matching row on the right. Right 5 cols: stat tiles (2×2), the HO card, then the branch list as a compact ledger with `tel:` links and a phone icon that fills primary on hover.
+**Layout:** Dark section (`--ink`), **no two-column panel**. The India map is the **full-bleed backdrop of the whole section**: an inline SVG (all states/UTs as 1 px paths at 16% white) scaled so India spans ~70% of the section height, anchored right of centre, fading to `--ink` at the edges with a radial mask. Pins are placed on the backdrop: Mumbai HO as a 14 px primary pin with a pulse ring; the nine branch cities (Bangalore, Kolkata, Delhi, Punjab, Rajasthan, Chennai, Indore, Pune/Nashik, Gujarat) as 8 px white pins; Maharashtra filled at 10% primary for the two factories. The legend sits as three small mono items pinned to the map's bottom-right, the coordinate tag `18.94°N · 72.84°E` next to the HO pin.
 
-**Motion:** map outline draws on scroll (`stroke-dashoffset`, 2 s), pins pop with spring stagger, arcs draw after pins, pulse ring loops 2.4 s; stat numbers count up.
+Content floats over the backdrop in three layers:
+1. **Top band:** label + H2 on the left (max 12 ch per line, display type), and the four stat tiles arranged as a **vertical stack on the far right** (each: big numeral in display type, small label, hairline between) — not a 2×2 grid.
+2. **Middle:** the `Our Presence Across India` title sits small, in mono, under the H2.
+3. **Bottom band — Branch Rail:** a full-width **horizontal scroll rail** of 11 cards: the first card is the Head Office card (wider, 360 px, primary top border, containing the three HO phone rows and a `HO` monogram); the next ten are branch cards (260 px each) showing the index, city in display type, state in mono, and the phone as a full-width `tel:` button with a phone icon. The rail is draggable, has snap points, a thin primary progress line and prev/next buttons at its right end. Hovering or focusing a branch card highlights its pin on the backdrop (pin grows and a hairline connects card → pin); the reverse also works. `View all 10 branch offices` becomes a text link that scrolls the rail to the end.
 
-## 4.7 `#testimonials` — TESTIMONIALS
+**Mobile:** map backdrop is cropped to the west coast (HO pin visible), stats collapse to a single horizontal row of four small numerals, rail keeps horizontal snap-scrolling.
+
+**Motion:** map paths draw (`stroke-dashoffset`, 2 s) as the section enters; pins pop with spring stagger from Mumbai outward by distance; pulse ring loops 2.4 s; stat numerals count up; rail cards enter from the right with 60 ms stagger; the card↔pin connector line draws on hover (250 ms).
+
+## 4.7 `#testimonials` — TESTIMONIALS  (new layout: scroll card-stack, no tabs)
 
 **Copy (verbatim):**
 - Label `06 Testimonials`
@@ -222,16 +237,18 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
   3. **PK — Praveen Kumar, Bengaluru:** "We have been impressed with the quality, performance, and attention to detail throughout our experience with the company. Their products have been dependable for our day to day requirements, and their team has been helpful and professional whenever we needed assistance. Overall, they have been a reliable choice for our business."
 - Counter `01 / 03`.
 
-**Layout:** Light section. A **single large quote stage** (max 880 px, display serif-less quote at 28–32 px, a large primary-colour opening quote mark drawn as an outlined glyph) with the three names listed as a vertical **selector rail** on the left (`01 Arun Kumar Chennai`, …). Clicking / auto-rotating (7 s) crossfades the quote with a slight upward motion; a thin progress bar under the active name shows time to the next quote. Avatar = initials in a primary-tinted circle.
+**Layout:** White section. **No name tabs, no stage/slider.** Left 4 cols: sticky column with label, intro, and the counter `01 / 03` in large mono that updates as cards pass. Right 8 cols: a **scroll-driven card stack** — the three testimonial cards are stacked in the same sticky slot; as the user scrolls, card 1 scales down to 0.94 and darkens slightly while card 2 slides up over it, then card 3 over card 2, leaving a visible 16 px "deck" edge of the previous cards beneath. Each card: `--paper` background, 28 px radius, hairline border, 48 px padding; the quote in display type at `clamp(22px,2.2vw,30px)`; a large primary opening quote mark (outline glyph) at the top-left; footer row with the initials avatar (48 px circle, `--primary-100`, initials in primary-700), name in body 600, city in mono. Card 2 is offset 24 px to the right and card 3 24 px to the left of centre so the deck has a slight fan.
 
-**Motion:** quote text crossfade + 16 px rise (500 ms), rail indicator slides, progress bar 7 s linear, pause on hover/focus; swipe on touch.
+**Mobile:** the same card-stack works vertically (sticky slot 70 svh); counter moves above the deck.
 
-## 4.8 `#contact` — CONTACT US
+**Motion:** ScrollTrigger scrub per card (scale, y, brightness); counter digits roll (slot-machine flip) when the active card changes; quote text on the active card reveals line-by-line the first time it becomes active; reduced motion → cards simply stacked vertically with 24 px gaps.
+
+## 4.8 `#contact` — CONTACT US  (new layout: split-screen, pinned form)
 
 **Copy (verbatim):**
 - Label `07 Contact Us`
-- H2/intro: "Share your requirements with us, and our team will get back to you with the right solution."
-- Contact rows (with icons and links):
+- Heading/intro: "Share your requirements with us, and our team will get back to you with the right solution."
+- Contact items:
   - **Phone Number** — `+91 22 22613521 / 22 / 23` → `tel:+912222613521`
   - **Email Address** — `sales@kayceeindustries.in` → `mailto:sales@kayceeindustries.in`
   - **Working Hours** — `Mon – Sat: 9:30 AM – 5:15 PM` / `Sunday: Closed`
@@ -239,24 +256,31 @@ Bottom-left: a thin caption in mono `KAYCEE / ROTARY SWITCH · 1 – OFF – 2`.
   - **Additional Contact** — `+91 93428 53324` · `+91 99302 61998` · `+91 92148 33194` · `+91 99770 05208` · `+91 99251 59373` · Mobile `9320664888` · Call & WhatsApp `7498899970` (`https://wa.me/917498899970`)
   - Map caption: `Kaycee Industries Ltd · Ballard Estate`
 - Form title: **"Send Us Message"** — "Fill in the details below and our sales team will reach out."
-  - Fields + validation messages (verbatim): `Enter Your Name` ("Please enter your name.") · `Enter Your Email` ("Please enter a valid email address.") · `Enter Your Mobile Number` ("Please enter a valid mobile number.") · `Select Your Product` ("Please select a product.") with options `Switches, Hour Meters, Counters, Rotary Toggles, Cable Lugs, Stroke Counter, Digital Counter, Rotary Toggle` · `Enter Your Message`
+  - Fields + validation (verbatim): `Enter Your Name` ("Please enter your name.") · `Enter Your Email` ("Please enter a valid email address.") · `Enter Your Mobile Number` ("Please enter a valid mobile number.") · `Select Your Product` ("Please select a product.") with options `Switches, Hour Meters, Counters, Rotary Toggles, Cable Lugs, Stroke Counter, Digital Counter, Rotary Toggle` · `Enter Your Message`
   - Submit: `Send Us Message`
   - Success: "Thank you. Your message has been sent." / "Our team will get back to you with the right solution." / link `Send another message`
-- Map embed: `https://www.google.com/maps?q=Kaycee+Industries+Ltd,+32+Ramjibhai+Kamani+Road,+Ballard+Estate,+Mumbai+400001&output=embed` (lazy, `loading="lazy"`, styled `grayscale(1) contrast(1.05)` with a primary pin overlay; coordinates 18.94°N, 72.84°E).
+- Map embed: `https://www.google.com/maps?q=Kaycee+Industries+Ltd,+32+Ramjibhai+Kamani+Road,+Ballard+Estate,+Mumbai+400001&output=embed` (lazy, grayscale, primary pin overlay; 18.94°N, 72.84°E).
 
-**Layout:** `--paper` section. Two-column: left 5 cols = the contact ledger (icon, label, value, copy-to-clipboard micro-button; "Additional Contact" as a wrap of small phone pills) with the map card beneath it; right 7 cols = the form inside a white card with a 24 px radius, floating labels, 2 px primary underline focus, product `<select>` styled custom, consent-free (as per site). Submit posts to a configurable endpoint (`data-endpoint`), with loading spinner → check-mark morph → success state replacing the form.
+**Layout:** **Edge-to-edge split screen, no cards, no info grid.**
+- **Right half (form) is a full-height `--ink` panel that is pinned (sticky) for the section's height.** The form is rendered as **oversized editorial fields**: each field is a full-width line with the placeholder text set in display type at 24 px on dark (`Enter Your Name`, `Enter Your Email`, …), a 1 px `--line-dark` rule beneath that turns into a 2 px primary rule on focus, and no boxes. The product select is a row of **choice chips** (the eight options) instead of a dropdown, single-select, with the same validation message. The submit is a full-width 64 px primary button `Send Us Message` at the panel's bottom with a large arrow; the success state replaces the form with a centred check-mark that draws itself and the two success lines, plus `Send another message`.
+- **Left half** is `--paper` and scrolls: label, the intro sentence set as the section's heading in display type (`clamp(32px,3.6vw,52px)`), then the contact items laid out as a **vertical timeline**: a 1 px primary line runs down the left with a node per item; each item shows its label in mono and its value in body 600 with the link; the "Additional Contact" node expands into a two-column list of the seven numbers as plain `tel:` links; the "Location" node holds a **small floating map card** (320×200, 16 px radius, rotated −2°, hairline, grayscale embed with a primary pin and the caption `Kaycee Industries Ltd · Ballard Estate`) that hangs off the timeline like a pinned photo. A copy-to-clipboard micro-button appears on hover for the phone and email values.
 
-**Motion:** ledger rows stagger; map card slides up; input underline animates; success state morphs; phone pills fill primary on hover.
+**Mobile:** stacked — left column first (timeline), then the dark form panel (not pinned) at full width.
 
-## 4.9 FOOTER (same content as supplied)
+**Motion:** the timeline line draws down as it enters; nodes pop; the map card settles from −6° to −2° with a spring; form field rules draw left→right on entry (70 ms stagger); chip selection uses a sliding primary fill; submit button shows a spinner, then the check draws (`stroke-dashoffset`, 600 ms).
 
-Dark (`--ink-2`). Four columns:
-1. `assets/img/kaycee-logo-light.webp` + "Premium electrical products — built for safety, designed for performance." + three social icon buttons (links `#` until the client supplies URLs).
-2. **Navigation:** Home · About Us · Clients · Products · Business Network · Investors (external) · Downloads (`#downloads`).
-3. **Products:** Switches · Hour Meters · Counters · Rotary Toggles · Cable Lugs (each → `#products`).
-4. **Contact:** `+91 22 22613521 / 22 / 23` · `sales@kayceeindustries.in` · `Working Hours: Mon – Sat: 9:30 AM – 5:15 PM, Sunday: Closed` · `32, Ramjibhai Kamani Road, Ballard Estate, Mumbai 400 001`.
-Bottom bar: giant outlined `KAYCEE` watermark (display font, 12% white, clipped) behind `© 2026. Kaycee Industries. All Rights Reserved` and `Website Developed by Samantha Technologies` (→ `https://samanthatechnologies.com`).
-Floating action cluster (bottom-right, appears after 600 px): `WhatsApp us` (→ `https://wa.me/917498899970`) and `Call now` (→ `tel:+919320664888`), plus a back-to-top pill with a circular scroll-progress ring.
+## 4.9 FOOTER  (new layout: closing band + mega wordmark + single-line nav)
+
+**Content (verbatim from supplied site):** logo `assets/img/kaycee-logo-light.webp`; line "Premium electrical products — built for safety, designed for performance."; nav links Home · About Us · Clients · Products · Business Network · Investors (external) · Downloads (`#downloads`); product links Switches · Hour Meters · Counters · Rotary Toggles · Cable Lugs (→ `#products`); contact `+91 22 22613521 / 22 / 23`, `sales@kayceeindustries.in`, `Working Hours: Mon – Sat: 9:30 AM – 5:15 PM, Sunday: Closed`, `32, Ramjibhai Kamani Road, Ballard Estate, Mumbai 400 001`; three social icon buttons (`#` until URLs are supplied); `© 2026. Kaycee Industries. All Rights Reserved`; `Website Developed by Samantha Technologies` (→ `https://samanthatechnologies.com`); floating `WhatsApp us` (→ `https://wa.me/917498899970`) and `Call now` (→ `tel:+919320664888`).
+
+**Layout:** **Not a four-column footer.** Three horizontal bands on `--ink-2`:
+1. **Closing band:** a full-width row with the brand line "Premium electrical products — built for safety, designed for performance." set in display type at `clamp(28px,3.4vw,48px)` on the left, and on the right two large "ticket" links stacked: `+91 22 22613521 / 22 / 23` and `sales@kayceeindustries.in`, each in display type with an arrow that nudges on hover, separated by hairlines. Below the tickets a small mono block: `Mon – Sat: 9:30 AM – 5:15 PM · Sunday: Closed` and the address on one line.
+2. **Mega wordmark band:** the word **KAYCEE** in display type sized to the full container width (`font-size` via `clamp` or SVG text scaled to 100% width), clipped at the bottom so only the top 70% of the letters shows, filled with a vertical gradient from 14% white to 0%. The logo `kaycee-logo-light.webp` (36 px tall) sits above the wordmark's left edge with the three social icon buttons beside it. This band parallaxes slightly (letters rise 24 px as the footer enters).
+3. **Utility line:** one hairline-topped row in mono 12 px: left = the seven nav links **inline**, separated by primary middle-dots (Home · About Us · Clients · Products · Business Network · Investors · Downloads); centre = the five product links inline in `--text-on-dark-2`; right = `© 2026. Kaycee Industries. All Rights Reserved` and `Website Developed by Samantha Technologies`. On mobile the three groups stack as wrapped chip rows.
+
+The floating action cluster (`WhatsApp us`, `Call now`, back-to-top with a scroll-progress ring) sits bottom-right of the viewport and hides when the footer's closing band is in view so it never overlaps the ticket links.
+
+**Motion:** ticket links slide their arrow and underline on hover; the wordmark letters rise with scrub parallax; the utility line fades in last; the back-to-top ring fills with scroll progress.
 
 ---
 
@@ -352,7 +376,8 @@ Rules: the logo is a raster with a blue triangle emblem — never recolour it, n
 - Custom cursor (≥ 1024 px, pointer: fine): 6 px primary dot + 28 px ring lagging 120 ms; over product cards the ring grows to 72 px with `VIEW ↗`; over the testimonial stage it shows `DRAG`; over the map it shrinks to a crosshair.
 - Scroll reveals: headline word/line clip-mask rise; paragraph line stagger; images `clip-path` wipes; counters count-up; SVG strokes draw (map, ring, spec dividers).
 - Parallax: hero image 1.0 → 1.08 with darkening; About range image at 0.9× speed; dark-section dot-grid at 0.95×.
-- Micro-interactions: button sweep + arrow nudge; product card tilt (max 6°, `perspective: 1000px`, spring reset); logo tiles grayscale → colour; branch phone pills fill; copy-to-clipboard toast "Copied"; testimonial progress bar; back-to-top ring; WhatsApp button subtle 1.03 pulse every 6 s.
+- Pinned / scrubbed sections: Why Choose Us horizontal track (pin ~250 vh, scrub 0.8, draggable); Testimonials card stack (per-card scale/y/brightness scrub, rolling counter); Contact form panel sticky for the section height. Never pin on mobile or under reduced motion.
+- Micro-interactions: button sweep + arrow nudge; product card tilt (max 6°, `perspective: 1000px`, spring reset); client-wall cursor spotlight (120 ms lag) and tile flip-in; branch rail drag/snap with card↔pin connector lines; copy-to-clipboard toast "Copied"; contact choice-chips sliding fill; footer ticket-link arrows and mega-wordmark parallax; back-to-top ring; WhatsApp button subtle 1.03 pulse every 6 s.
 - Section transitions: overlapping rounded planes (§6.3) plus a 1 px primary hairline that draws across at each section top as it enters.
 - Reduced motion: disable parallax, cursor, marquee auto-scroll, tilt, pulses; keep ≤ 200 ms opacity fades; hero renders sharp immediately.
 
@@ -376,7 +401,7 @@ Rules: the logo is a raster with a blue triangle emblem — never recolour it, n
 - [ ] Primary `#0997E0` used per §6; fonts Bricolage Grotesque / Manrope / Geist Mono only.
 - [ ] Hero loads sharp within 2 s, product visible above the fold on mobile and desktop.
 - [ ] Reduced-motion path works; Lighthouse ≥ 95 / 100 / 100 / 100.
-- [ ] Looks bespoke: asymmetric hero with scrim, editorial About, dark bento Products, ledger Why-Us, dual marquee, drawn India map, quote stage, ledger Contact.
+- [ ] Looks bespoke and nothing like the previous draft: scrim hero, editorial About, dark bento Products, pinned horizontal Why-Us, spotlight logo wall (no marquee), full-bleed map backdrop with branch rail (no two-column panel), scroll card-stack testimonials (no tabs), split-screen Contact with pinned editorial form (no cards), three-band footer with mega wordmark (no four-column grid).
 
 Return the complete codebase — every file in full, no omissions — followed by a 5-line "Client checklist" (social URLs, form endpoint, catalogue PDFs for Downloads, Investors URL confirmation, stat verification).
 
@@ -389,6 +414,8 @@ Return the complete codebase — every file in full, no omissions — followed b
 **What changed from v1:** v1 was reconstructed from web search because no files were supplied. v2 is built entirely from the uploaded `kaycee-industries-website.zip` (the earlier Samantha Technologies draft). All copy, numbers, phone lists, testimonials, logos and images now come from that package; the email is `sales@kayceeindustries.in` as in the package (v1 had `.com` from public listings — confirm with the client which is live).
 
 **Deliberately discarded from the package:** Archivo + Plex Mono fonts, the navy `#071B2C` palette, all layouts, component styles and the GSAP choreography in `main.js`. Kept: `#0997E0` (as instructed) and every asset.
+
+**v2.1 layout changes:** Why Choose Us, Clients, Business Network, Testimonials, Contact and Footer were re-laid-out so they no longer mirror the draft's structure (two-column growth/list, logo marquee, map panel + side list, name tabs + stage, info grid + form card, four-column footer). See §4.4–§4.9.
 
 **Assets:** copied into this repo at `assets/img/` (19 files, 1.5 MB) so the prompt's paths resolve as-is.
 
